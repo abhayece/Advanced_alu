@@ -1,5 +1,5 @@
-module divider_restoring #(
-    parameter WIDTH = 16
+
+module divider_restoring   parameter WIDTH = 16
 )(
     input  wire             clk,
     input  wire             rst,
@@ -35,19 +35,19 @@ module divider_restoring #(
             done      <= 0;
         end
         else if (busy) begin
-            rem = {rem[WIDTH-1:0], quotient[WIDTH-1]};
-            quotient = quotient << 1;
-            rem = rem - divisor;
+            rem <= {rem[WIDTH-1:0], quotient[WIDTH-1]};
+            quotient <= quotient << 1;
+            rem <= rem - divisor;
 
             if (rem[WIDTH]) begin
-                rem = rem + divisor;
-                quotient[0] = 0;
+                rem <= rem + divisor;
+                quotient[0] <= 0;
             end
             else begin
-                quotient[0] = 1;
+                quotient[0] <= 1;
             end
 
-            count = count - 1;
+            count <= count - 1;
 
             if (count == 1) begin
                 remainder <= rem[WIDTH-1:0];

@@ -137,13 +137,17 @@ module alu_top #(
     // ------------------------------------------------------------------
     // Status Signals
     // ------------------------------------------------------------------
-    assign busy = mul_busy | div_busy;
+wire is_mul = (opcode == 4'b1000);
+wire is_div = (opcode == 4'b1001);
 
-    assign done = (opcode == 4'b1000) ? mul_done :
-                  (opcode == 4'b1001) ? div_done :
-                  start;   // single-cycle ops
+assign busy = mul_busy | div_busy;
 
-    // ------------------------------------------------------------------
+assign done = is_mul ? mul_done :
+              is_div ? div_done :
+              1'b1;
+ 
+
+   // ------------------------------------------------------------------
     // Flags
     // ------------------------------------------------------------------
     wire is_arith = (opcode[3:2] == 2'b00);

@@ -22,4 +22,4 @@
          cmp = {is_lt, is_gt, is_eq};
      end
 
- endmodulez	
+ endmodule	
