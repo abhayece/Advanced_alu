@@ -3,7 +3,7 @@ module adder_subtractor #(
 )(
     input  wire [WIDTH-1:0] A,
     input  wire [WIDTH-1:0] B,
-    input  wire [1:0]       op,       // 00=ADD, 01=SUB, 10=INC, 11=DEC
+    input  wire [1:0]       op,       
     output wire [WIDTH-1:0] result,
     output wire              carry,
     output wire              overflow
@@ -12,7 +12,7 @@ module adder_subtractor #(
     wire [WIDTH-1:0] B_int;
     wire             cin;
 
-    // Optimized Operand Selection logic
+    
     // Now INC/DEC ignore the external B input entirely
     assign B_int = (op == 2'b01) ? ~B :             // SUB: use 1's complement
                    (op == 2'b10) ? {WIDTH{1'b0}} :  // INC: force B to 0
