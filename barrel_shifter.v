@@ -7,47 +7,36 @@ module barrel_shifter #(
     output reg  [WIDTH-1:0] data_out
 );
 
-    integer i;
-    reg [WIDTH-1:0] temp;
+always @(*) begin
+    case (mode)
 
-    always @(*) begin
-        temp = data_in;
+        // Logical Left Shift
+        3'b000:
+            data_out = data_in << shift_amt;
 
-        case (mode)
-            // Logical Left Shift
-            3'b000: begin
-                for (i = 0; i < shift_amt; i = i + 1)
-                    temp = {temp[WIDTH-2:0], 1'b0};
-            end
+        // Logical Right Shift
+        3'b001:
+            data_out = data_in >> shift_amt;
 
-            // Logical Right Shift
-            3'b001: begin
-                for (i = 0; i < shift_amt; i = i + 1)
-                    temp = {1'b0, temp[WIDTH-1:1]};
-            end
+        // Arithmetic Right Shift
+        3'b010:
+            data_out = $signed(data_in) >>> shift_amt;
 
-            // Arithmetic Right Shift
-            3'b010: begin
-                for (i = 0; i < shift_amt; i = i + 1)
-                    temp = {temp[WIDTH-1], temp[WIDTH-1:1]};
-            end
+        // Rotate Left
+        3'b011:
+            data_out = (data_in << shift_amt) |
+                       (data_in >> (WIDTH - shift_amt));
 
-            // Rotate Left
-            3'b011: begin
-                for (i = 0; i < shift_amt; i = i + 1)
-                    temp = {temp[WIDTH-2:0], temp[WIDTH-1]};
-            end
+        // Rotate Right
+        3'b100:
+            data_out = (data_in >> shift_amt) |
+                       (data_in << (WIDTH - shift_amt));
 
-            // Rotate Right
-            3'b100: begin
-                for (i = 0; i < shift_amt; i = i + 1)
-                    temp = {temp[0], temp[WIDTH-1:1]};
-            end
+        default:
+            data_out = data_in;
 
-            default: temp = data_in;
-        endcase
-
-        data_out = temp;
-    end
+    endcase
+end
 
 endmodule
+

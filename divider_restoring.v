@@ -1,5 +1,7 @@
 
-module divider_restoring   parameter WIDTH = 16
+module divider_restoring   #(
+	parameter WIDTH = 16
+
 )(
     input  wire             clk,
     input  wire             rst,
