@@ -1,1 +1,1 @@
-![Uploading alu_top.yosys_show.png…]()
+![ALU Schematic](alu_top.yosys_show.png)
