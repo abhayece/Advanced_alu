@@ -82,10 +82,10 @@ flowchart LR
 
 ### 1. Arithmetic Unit (`adder_subtractor.v`)
 Performs addition, subtraction, increment, and decrement by steering operand `B` and setting `cin`:
-- **ADD (`00`):** `B_int = B`, `cin = 0` $ightarrow$ `A + B`
-- **SUB (`01`):** `B_int = ~B`, `cin = 1` $ightarrow$ `A + ~B + 1` ($A - B$)
-- **INC (`10`):** `B_int = 0`, `cin = 1` $ightarrow$ `A + 0 + 1` ($A + 1$, operand `B` ignored)
-- **DEC (`11`):** `B_int = {WIDTH{1'b1}}`, `cin = 0` $ightarrow$ `A + (-1)` ($A - 1$, operand `B` ignored)
+- **ADD (`00`):** `B_int = B`, `cin = 0` -> `A + B`
+- **SUB (`01`):** `B_int = ~B`, `cin = 1` -> `A + ~B + 1` (`A - B`)
+- **INC (`10`):** `B_int = 0`, `cin = 1` -> `A + 0 + 1` (`A + 1`, operand `B` ignored)
+- **DEC (`11`):** `B_int = {WIDTH{1'b1}}`, `cin = 0` -> `A + (-1)` (`A - 1`, operand `B` ignored)
 
 Hardware carry is extracted with left-hand concatenation:
 ```verilog
@@ -100,7 +100,7 @@ assign overflow = (A[WIDTH-1] == B_int[WIDTH-1]) && (result[WIDTH-1] != A[WIDTH-
 Pure combinational module implementing 8 bitwise operations: `AND`, `OR`, `XOR`, `XNOR`, `NAND`, `NOR`, `NOT`, and `PASS`. Computes within a single gate propagation delay.
 
 ### 3. Barrel Shifter (`barrel_shifter.v`)
-Performs multi-bit shifts and rotations in a single clock cycle using the lower $\log_2(	ext{WIDTH})$ bits of `B` (`B[3:0]` for 16-bit):
+Performs multi-bit shifts and rotations in a single clock cycle using the lower 4 bits of `B` (`B[3:0]` for 16-bit):
 - Logical Shift Left (`LSL`)
 - Logical Shift Right (`LSR`)
 - Arithmetic Shift Right (`ASR` — preserves sign bit)
