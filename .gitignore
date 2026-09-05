@@ -1,0 +1,23 @@
+﻿# EDA & Simulation temporary files
+work/
+rtl/work/
+db/
+rtl/db/
+incremental_db/
+rtl/incremental_db/
+output_files/
+rtl/output_files/
+*.wlf
+rtl/*.wlf
+*.mti
+rtl/*.mti
+*.mpf
+rtl/*.mpf
+*.qws
+rtl/*.qws
+*.bak
+rtl/*.bak
+
+# Temporary/scratch files
+*.log
+*.jou
